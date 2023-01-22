@@ -198,4 +198,18 @@ public class BasicControllerTest {
                         User.builder().username("userC").age(30).build())))
         ;
     }
+
+    @Test
+    void commentsTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/comments"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/comments"))
+                .andExpect(model().attribute("data", "Spring!"))
+        ;
+    }
 }
