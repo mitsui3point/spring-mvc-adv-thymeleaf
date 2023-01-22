@@ -9,15 +9,11 @@ import org.apache.catalina.connector.ResponseFacade;
 import org.apache.catalina.session.StandardSessionFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/basic")
@@ -101,5 +97,19 @@ public class BasicController {
     @GetMapping("/attribute")
     public String attribute(Model model) {
         return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model) {
+        addUsers(model);
+        return "basic/each";
+    }
+
+    private void addUsers(Model model) {
+        ArrayList<User> list = new ArrayList<>();
+        list.add(User.builder().username("userA").age(10).build());
+        list.add(User.builder().username("userB").age(20).build());
+        list.add(User.builder().username("userC").age(30).build());
+        model.addAttribute("users", list);
     }
 }

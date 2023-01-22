@@ -4,17 +4,14 @@ import hello.thymeleaf.basic.domain.User;
 import hello.thymeleaf.basic.springbean.HelloBean;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.web.SpringBootMockServletContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -85,7 +82,7 @@ public class BasicControllerTest {
         ResultActions perform = mvc.perform(get("/basic/basic-objects"));
 
         //then
-         perform.andDo(print())
+        perform.andDo(print())
                 .andExpect(view().name("basic/basic-objects"))
                 .andExpect(result -> {
                     MockHttpServletRequest request = result.getRequest();
@@ -121,8 +118,8 @@ public class BasicControllerTest {
         //then
         perform.andDo(print())
                 .andExpect(view().name("basic/link"))
-                .andExpect(model().attribute("param1","data1"))
-                .andExpect(model().attribute("param2","data2"))
+                .andExpect(model().attribute("param1", "data1"))
+                .andExpect(model().attribute("param2", "data2"))
         ;
     }
 
@@ -136,7 +133,7 @@ public class BasicControllerTest {
         //then
         perform.andDo(print())
                 .andExpect(view().name("basic/literal"))
-                .andExpect(model().attribute("data","Spring!"))
+                .andExpect(model().attribute("data", "Spring!"))
         ;
     }
 
@@ -150,10 +147,11 @@ public class BasicControllerTest {
         //then
         perform.andDo(print())
                 .andExpect(view().name("basic/operation"))
-                .andExpect(model().attribute("data","Spring!"))
+                .andExpect(model().attribute("data", "Spring!"))
                 .andExpect(result -> Assertions.assertThat(result.getModelAndView().getModel().get("nullData")).isNull())
         ;
     }
+
     @Test
     void attributeTest() throws Exception {
         //given
@@ -164,6 +162,23 @@ public class BasicControllerTest {
         //then
         perform.andDo(print())
                 .andExpect(view().name("basic/attribute"))
+        ;
+    }
+
+    @Test
+    void eachTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/each"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/each"))
+                .andExpect(model().attribute("users", Arrays.asList(
+                        User.builder().username("userA").age(10).build(),
+                        User.builder().username("userB").age(20).build(),
+                        User.builder().username("userC").age(30).build())))
         ;
     }
 }
