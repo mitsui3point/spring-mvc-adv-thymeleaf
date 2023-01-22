@@ -111,5 +111,18 @@ public class BasicControllerTest {
                 });
     }
 
+    @Test
+    void linkTest() throws Exception {
+        //given
 
+        //when
+        ResultActions perform = mvc.perform(get("/basic/link"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/link"))
+                .andExpect(model().attribute("param1","data1"))
+                .andExpect(model().attribute("param2","data2"))
+        ;
+    }
 }
