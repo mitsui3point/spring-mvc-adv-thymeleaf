@@ -12,6 +12,10 @@
 </ul>
 <h1>LocalDateTime - Utils</h1>
 <ul>
+<!--타임리프 유틸리티 객체-->
+<!--https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#expression-utility-objects-->
+<!--유틸리티 객체 예시-->
+<!--https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#appendix-b-expression-utility-objects-->
     <li>${#temporals.day(localDateTime)} = <span th:text="${#temporals.day(localDateTime)}"></span></li>
     <li>${#temporals.month(localDateTime)} = <span th:text="${#temporals.month(localDateTime)}"></span></li>
     <li>${#temporals.monthName(localDateTime)} = <span th:text="${#temporals.monthName(localDateTime)}"></span></li>
