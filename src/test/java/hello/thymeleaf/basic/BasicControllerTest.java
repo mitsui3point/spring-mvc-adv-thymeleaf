@@ -2,6 +2,7 @@ package hello.thymeleaf.basic;
 
 import hello.thymeleaf.basic.domain.User;
 import hello.thymeleaf.basic.springbean.HelloBean;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -93,4 +95,21 @@ public class BasicControllerTest {
                 })
                 .andExpect(request().sessionAttribute("sessionData", "hello Session"));
     }
+
+    @Test
+    void basicDateTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/date"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/date"))
+                .andExpect(result -> {
+                    Assertions.assertThat(result.getRequest().getAttribute("localDateTime").getClass()).isEqualTo(LocalDateTime.class);
+                });
+    }
+
+
 }

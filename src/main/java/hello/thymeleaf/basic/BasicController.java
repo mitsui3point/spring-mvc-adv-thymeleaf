@@ -13,6 +13,7 @@ import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -69,5 +70,11 @@ public class BasicController {
         model.addAttribute("servletContext", request.getServletContext());//servletContext = org.apache.catalina.core.ApplicationContextFacade@13b98349; interface ServletContext 구현체
         session.setAttribute("sessionData", "hello Session");
         return "basic/basic-objects";
+    }
+
+    @GetMapping("/date")
+    public String basicObjects(Model model) {
+        model.addAttribute("localDateTime", LocalDateTime.now());
+        return "basic/date";
     }
 }
