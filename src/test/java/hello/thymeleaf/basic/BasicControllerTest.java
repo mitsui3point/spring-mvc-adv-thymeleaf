@@ -154,4 +154,16 @@ public class BasicControllerTest {
                 .andExpect(result -> Assertions.assertThat(result.getModelAndView().getModel().get("nullData")).isNull())
         ;
     }
+    @Test
+    void attributeTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/attribute"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/attribute"))
+        ;
+    }
 }
