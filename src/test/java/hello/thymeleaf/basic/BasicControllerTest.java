@@ -125,4 +125,18 @@ public class BasicControllerTest {
                 .andExpect(model().attribute("param2","data2"))
         ;
     }
+
+    @Test
+    void literalTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/literal"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/literal"))
+                .andExpect(model().attribute("data","Spring!"))
+        ;
+    }
 }
