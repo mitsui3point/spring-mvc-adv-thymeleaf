@@ -139,4 +139,19 @@ public class BasicControllerTest {
                 .andExpect(model().attribute("data","Spring!"))
         ;
     }
+
+    @Test
+    void operationTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/operation"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/operation"))
+                .andExpect(model().attribute("data","Spring!"))
+                .andExpect(result -> Assertions.assertThat(result.getModelAndView().getModel().get("nullData")).isNull())
+        ;
+    }
 }
