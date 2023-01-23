@@ -27,4 +27,16 @@ public class TemplateControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("template/fragment/fragmentMain"));
     }
+
+    @Test
+    void layoutTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/template/layout"));
+        //then
+        perform.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("template/layout/layoutMain"));
+    }
 }
