@@ -212,4 +212,22 @@ public class BasicControllerTest {
                 .andExpect(model().attribute("data", "Spring!"))
         ;
     }
+
+    @Test
+    void blockTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/block"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/block"))
+                .andExpect(model().attribute("users", Arrays.asList(
+                        User.builder().username("userA").age(10).build(),
+                        User.builder().username("userB").age(20).build(),
+                        User.builder().username("userC").age(30).build())))
+        ;
+        ;
+    }
 }
