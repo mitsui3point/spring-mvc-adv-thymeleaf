@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--/*-->
+타임리프는 자바스크립트에서 타임리프를 편리하게 사용할 수 있는 자바스크립트 인라인 기능을 제공한다.
+자바스크립트 인라인 기능은 다음과 같이 적용하면 된다.
+<script th:inline="javascript"></script>
+<!--*/-->
+
+<!--자바스크립트 인라인 사용 전-->
+<script>
+    // var username = [[${user.username}]];
+    var username = "[[${user.username}]]";
+    var age = [[${user.age}]];
+
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username";
+
+    //객체
+    var user = [[${user}]];
+</script>
+
+<!--자바스크립트 인라인 사용 후-->
+<script th:inline="javascript">
+    var username = [[${user.username}]];
+    var age = [[${user.age}]];
+
+    //자바스크립트 내추럴 템플릿
+    /*
+    타임리프는 HTML 파일을 직접 열어도 동작하는 내추럴 템플릿 기능을 제공한다.
+    자바스크립트 인라인 기능을 사용하면 주석을 활용해서 이 기능을 사용할 수 있다.
+
+    인라인 사용 전 결과를 보면 정말 순수하게 그대로 해석을 해버렸다.
+    따라서 내추럴 템플릿 기능이 동작하지 않고, 심지어 렌더링 내용이 주석처리 되어 버린다.
+    인라인 사용 후 결과를 보면 주석 부분이 제거되고, 기대한 "userA"가 정확하게 적용된다.
+
+    user.username 안에 값이 있을경우 "test username" 대신 user.username의 값이 할당된다.
+    */
+    var username2 = /*[[${user.username}]]*/ "test username";
+
+    //객체
+    var user = [[${user}]];
+</script>
+
+<!--자바스크립트 인라인 each-->
+<script th:inline="javascript">
+    [# th:each="user, stat: ${users}"]
+    var user[[${stat.count}]] = [[${user}]];
+    [/]
+</script>
+</body>
+</html>

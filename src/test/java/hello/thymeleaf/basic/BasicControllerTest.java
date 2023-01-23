@@ -228,6 +228,23 @@ public class BasicControllerTest {
                         User.builder().username("userB").age(20).build(),
                         User.builder().username("userC").age(30).build())))
         ;
+    }
+
+    @Test
+    void javascriptTest() throws Exception {
+        //given
+
+        //when
+        ResultActions perform = mvc.perform(get("/basic/javascript"));
+
+        //then
+        perform.andDo(print())
+                .andExpect(view().name("basic/javascript"))
+                .andExpect(model().attribute("user", User.builder().username("userA").age(10).build()))
+                .andExpect(model().attribute("users", Arrays.asList(
+                        User.builder().username("userA").age(10).build(),
+                        User.builder().username("userB").age(20).build(),
+                        User.builder().username("userC").age(30).build())))
         ;
     }
 }
